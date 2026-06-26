@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Environment variables — never commit real secrets
+.env
+.env.example
+
+# Uploaded candidate photos (user-generated content, not source code)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+
+# npm
+npm-debug.log*
+
+# Local docs not pushed to the repo
+READ2.md
+READ.md

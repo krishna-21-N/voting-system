@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hive Ballot — Your Ballot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div class="mark">Hive<span>Ballot</span></div>
+      <nav>
+        <a href="results.html">Results</a>
+        <a href="#" id="logoutLink">Log out</a>
+      </nav>
+    </div>
+
+    <h1 class="headline">Your ballot</h1>
+    <p class="lede">Pick one candidate. Once cast, your choice can't be changed — and it's never stored against your name.</p>
+
+    <div id="statusBanner" class="status-banner"></div>
+    <div id="alertBox" class="alert"></div>
+    <div id="ballotContainer" class="ballot"></div>
+  </div>
+
+  <!-- Vote confirmation stamp -->
+  <div class="stamp-overlay" id="stampOverlay">
+    <div>
+      <div class="stamp">Voted</div>
+      <span class="stamp-sub">Your vote has been recorded anonymously. Redirecting to results…</span>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/vote.js"></script>
+</body>
+</html>
