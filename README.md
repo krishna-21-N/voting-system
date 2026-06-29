@@ -1,76 +1,90 @@
-# Secure Voting System
+ # 🗳️ Secure Voting System
 
-A simple online voting system for small groups — an office, a college class, a club.
+A full-stack voting app — built with **Python/FastAPI** (backend), **HTML/CSS/JavaScript** (frontend), and **MySQL** (database).
 
-- Voters log in with a Company ID + Company Email (no signup needed — admin adds them first)
-- Each person can vote only once
-- Voting only works during a time window set by the admin
-- Votes are anonymous — there's no way to know who voted for whom
-- Admin can add candidates (with photos), set the voting time, and manage the voter list
+## Features
+
+* Voter login with company ID + email (no signup, admin pre-loads the roster)
+* Admin can add candidates (with photo), set voting start/end time, and manage voters
+* One vote per person — enforced using MySQL transactions with row-level locking
+* Fully anonymous votes — no voter information stored with the vote
+* Live results page with vote counts and turnout percentage
+* Interactive REST API documentation with FastAPI Swagger UI
 
 ## Tech Stack
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Node.js + Express
-- **Database:** MySQL
-- **Login:** JWT (JSON Web Tokens)
-- **Photo uploads:** Multer
+
+**Backend:** Python, FastAPI, MySQL, PyMySQL, DBUtils, JWT, Pydantic
+
+**Frontend:** HTML, CSS, JavaScript
 
 ## Project Structure
-```
+
+```text
 voting-system/
-├── backend/        → server code (API, database connection, routes)
-└── frontend/        → website pages (login, vote, results, admin)
+├── backend/      # FastAPI, Python, MySQL
+└── frontend/     # HTML, CSS, JavaScript
 ```
 
-## How to Run It
+## Getting Started
 
-**1. Set up the database**
+### 1. Backend Setup
+
+```bash
+cd backend
+
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Linux/macOS
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+Create a `.env` file in `backend/` (copy from `.env.example`) and add your MySQL details:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=voting_system
+JWT_SECRET=your-secret-key
+PORT=5000
+```
+
+Run the backend:
+
+```bash
+python seed_admin.py
+uvicorn app.main:app --host 0.0.0.0 --port 5000
+```
+
+Server runs at: `http://localhost:5000`
+
+### 2. Database
+
 ```bash
 mysql -u root -p < backend/sql/schema.sql
 ```
 
-**2. Set up the backend**
+This creates the `voting_system` database and tables.
+
+Then create the admin login:
+
 ```bash
 cd backend
-npm install
-cp .env.example .env
+python seed_admin.py
 ```
-Open `.env` and add your MySQL password + a random secret key.
 
-**3. Create the admin login**
-```bash
-npm run seed-admin
-```
-This creates: username `admin`, password `admin123` (change it later).
+## Usage
 
-**4. Start the server**
-```bash
-npm start
-```
-Now open `http://localhost:5000` in your browser.
-
-## Pages
-| Page | What it's for |
-|---|---|
-| `/` | Voter login |
-| `/vote.html` | Cast your vote |
-| `/results.html` | See live results |
-| `/admin.html` | Admin login + manage everything |
-
-## Main API Routes
-| Route | What it does |
-|---|---|
-| `POST /api/auth/login` | Voter login |
-| `POST /api/vote` | Cast a vote |
-| `GET /api/candidates/results` | Get vote counts |
-| `POST /api/candidates` | (Admin) Add a candidate |
-| `POST /api/voters` | (Admin) Add a voter |
-| `PUT /api/election` | (Admin) Set voting time |
-
-## Why It's Safe
-- A vote is only ever saved as "candidate + time" — never linked to a voter, so no one can trace a vote back to a person.
-- Double-voting is blocked at the database level, not just in the browser.
-- Voting outside the set time window is blocked by the server, not just hidden buttons.
+1. Open `http://localhost:5000/admin.html` → sign in (`admin` / `admin123`) → set the voting schedule, add candidates, and manage voters.
+2. Open `http://localhost:5000` → voters sign in with Company ID and Company Email → cast their vote.
+3. Open `http://localhost:5000/results.html` → view live election results.
+4. Open `http://localhost:5000/docs` → browse the interactive API documentation.
 
 ## License
-MIT — free to use and modify.
+
+MIT — free to use for personal and learning purposes.

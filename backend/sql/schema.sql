@@ -1,4 +1,4 @@
--- Hive Ballot — Office/College Edition
+-- Secure Voting System
 -- Run: mysql -u root -p < schema.sql
 
 CREATE DATABASE IF NOT EXISTS voting_system;
@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS admins (
 );
 
 -- Single-row table holding the active election's title + voting window.
--- Voting is only allowed between start_time and end_time.
 CREATE TABLE IF NOT EXISTS election_settings (
   id INT PRIMARY KEY DEFAULT 1,
   title VARCHAR(150) DEFAULT 'Office Election',
