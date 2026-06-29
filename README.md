@@ -80,7 +80,7 @@ python seed_admin.py
 
 ## Usage
 
-1. Open `http://localhost:5000/admin.html` → sign in (`admin` / `admin123`) → set the voting schedule, add candidates, and manage voters.
+1. Open `http://localhost:5000/admin.html` → sign in (`admin` / `adm*****`) → set the voting schedule, add candidates, and manage voters.
 2. Open `http://localhost:5000` → voters sign in with Company ID and Company Email → cast their vote.
 3. Open `http://localhost:5000/results.html` → view live election results.
 4. Open `http://localhost:5000/docs` → browse the interactive API documentation.
